@@ -8,6 +8,7 @@ services:
       args:
         BUILD_TARGET: server
         BUILD_PROJECT: some-project-one
+        VERSION: v1.2.7
 
   some-project-two-server:
     build:
@@ -16,6 +17,7 @@ services:
       args:
         BUILD_TARGET: server
         BUILD_PROJECT: some-project-two
+        VERSION: v1.2.7
 
   some-project-one-consumer:
     build:
@@ -24,6 +26,7 @@ services:
       args:
         BUILD_TARGET: consumer
         BUILD_PROJECT: some-project-one
+        VERSION: v1.2.7
 
   some-project-two-consumer:
     build:
@@ -32,3 +35,4 @@ services:
       args:
         BUILD_TARGET: consumer
         BUILD_PROJECT: some-project-two
+        VERSION: v1.2.7

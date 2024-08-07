@@ -1,29 +1,20 @@
 
 FROM golang:1.22 AS base
 
+ENV ROOT="github.com/Alzgaymer/dockerfile-build-optimization"
+
 ARG BUILD_TARGET
 ARG BUILD_PROJECT
+ARG VERSION
 
 # oneof server or consumer
 ENV TARGET_BINARY=${BUILD_TARGET}
 # oneof some-project-one/two
 ENV TARGET_PROJECT=${BUILD_PROJECT}
 
+ENV TARGET_VERSION=${VERSION}
 
-WORKDIR /app
-
-COPY go.mod /app
-
-COPY . /app
-
-ENV BINARY=${TARGET_PROJECT}-${TARGET_BINARY}
-
-RUN /app/log.envs.sh
-
-RUN CGO_ENABLED=0 \
-    go build -o /app/bin/${BINARY}\
-     /app/some-project/${TARGET_PROJECT}/cmd/${TARGET_BINARY}/main.go
-
+RUN go install ${ROOT}/some-project/${TARGET_PROJECT}/cmd/${TARGET_BINARY}@${TARGET_VERSION}
 
 FROM alpine
 
@@ -35,13 +26,11 @@ ENV TARGET_BINARY=${BUILD_TARGET}
 # oneof some-project-one/two
 ENV TARGET_PROJECT=${BUILD_PROJECT}
 
-ENV BINARY=${TARGET_PROJECT}-${TARGET_BINARY}
-
 WORKDIR /app
 
 COPY docker-entrypoint.sh ./
 COPY log.envs.sh ./
 
-COPY --from=base /app/bin/${BINARY} ./
+COPY --from=base /go/bin/${TARGET_BINARY} ./
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

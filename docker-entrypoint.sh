@@ -2,4 +2,4 @@
 
 ./log.envs.sh
 
-exec /app/"${BINARY}"
+exec /app/"${TARGET_BINARY}"
