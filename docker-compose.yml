@@ -1,15 +1,34 @@
 version: '3.9'
 
 services:
-  server:
+  some-project-one-server:
     build:
       context: .
       dockerfile: Dockerfile
       args:
         BUILD_TARGET: server
-  consumer:
+        BUILD_PROJECT: some-project-one
+
+  some-project-two-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_TARGET: server
+        BUILD_PROJECT: some-project-two
+
+  some-project-one-consumer:
     build:
       context: .
       dockerfile: Dockerfile
       args:
         BUILD_TARGET: consumer
+        BUILD_PROJECT: some-project-one
+
+  some-project-two-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_TARGET: consumer
+        BUILD_PROJECT: some-project-two
