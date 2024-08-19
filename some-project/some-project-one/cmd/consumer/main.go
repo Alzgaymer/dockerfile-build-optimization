@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
 func main() {
-	fmt.Println("You successfully ran consumer!\nP.S. From some-project-one")
+	fmt.Printf("You successfully ran consumer!\nFrom %s\nP.S. From some-project-one", runtime.GOARCH)
 }
